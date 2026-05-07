@@ -10,20 +10,38 @@
     <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
 
     <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <script src="https://unpkg.com/supersimpledev/dayjs.js"></script>
     <script type="text/babel">
       const button = <button>Hello</button>;
       const paragrahp = <p>paragraph of text</p>
 
-      const divContainer = (
-        <div>
-            <p>Cotton Socks</p>
-            <p>Price: $10</p>
-            <button>Add to Cart</button>
-        </div>
-      )
+      const socks = 10 * 1;
+      const tshirt = 8 * 2;
+      const shippingCost = 5;
 
+      const productCost = socks + tshirt;
+      
       const container = document.querySelector('.js-container');
-      ReactDOM.createRoot(container).render(divContainer);
+      const root = ReactDOM.createRoot(container);
+
+      console.log(productCost);
+
+        setInterval(() => {
+          const date = dayjs().format('MMMM D YYYY');
+          const currentTime = dayjs().format('HH:mm:ss');
+
+          const divContainer = (
+            <div>
+                <p>Product cost: ${productCost}</p>
+                <p>Shipping cost: ${shippingCost}</p>
+                <p>Total cost: ${productCost + shippingCost}</p>
+                <p>Today is {date}</p>
+                <p>Current Time {currentTime}</p>
+                <button>Place your order</button>
+            </div>
+          );
+            root.render(divContainer);
+        }, 1000);
     </script>
   </body>
 </html>
