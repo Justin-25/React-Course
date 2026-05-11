@@ -24,21 +24,62 @@
 
           // div is to group elements to have a multiple elements
           <>
-            <input placeholder="Send a message to Chatbot" size="30" />
+            <input 
+              placeholder="Send a message to Chatbot" 
+              size="30" 
+            />
             <button>Send</button>
           </>
         );
       }
 
-      const app = (
-        <div>
-          <ChatInput /> 
-        </div>
-      );
+      function ChatMessage({ message, sender }) {
+        // const message = props.message;
+        // const sender = props.sender;
+        // const { message, sender } = props;
+
+        // if(sender === 'robot') {
+        //   return (
+        //     <div>
+        //       <img src="robot.png" width="50" />
+        //       {message}
+        //     </div>
+        //   )
+        // };
+
+        return (
+            <div>
+              {sender === 'robot' && (
+                <img src="robot.png" width="50" />
+              )}
+              {message}
+              {sender === 'user' && (
+                <img src="user.png" width="50" />
+              )}
+            </div>
+        )
+      };
+
+
+      function App() {
+        return (
+          <>
+            <ChatInput /> 
+            <ChatMessage 
+              message="Hello Chatbot" 
+              sender="user" 
+            />
+            <ChatMessage 
+              message="Hello! How can I help you?" 
+              sender="robot" 
+            />
+          </>
+        )
+      }
       
       const container = document.querySelector('.js-container');
       const root = ReactDOM.createRoot(container);
-        root.render(app)
+        root.render(<App />)
     </script>
   </body>
 </html>
