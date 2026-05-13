@@ -60,8 +60,32 @@
         )
       };
 
+      function LoginForm() {
+        return (
+          <>
+            <p>Hello, welcome to my website</p>
+            <div>
+              <input type="text" placeholder="Email" />
+            </div>
+            <div>
+              <input type="password" placeholder="Password" />
+            </div>
+            <button>Login</button>
+            <button>Sign up</button>
+          </>
+        )
+      }
 
       function App() {
+        return (
+          <>
+            <LoginForm /> 
+          </>
+        )
+      }
+
+
+      function Apps() {
         return (
           <>
             <ChatInput /> 
