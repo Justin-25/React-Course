@@ -60,45 +60,71 @@
         )
       };
 
-      function LoginForm() {
+      // function LoginForm() {
+      //   return (
+      //     <>
+      //       <p>Hello, welcome to my website</p>
+      //       <div>
+      //         <input type="text" placeholder="Email" />
+      //       </div>
+      //       <div>
+      //         <input type="password" placeholder="Password" />
+      //       </div>
+      //       <button>Login</button>
+      //       <button>Sign up</button>
+      //     </>
+      //   )
+      // }
+
+      // function App() {
+      //   return (
+      //     <>
+      //       <LoginForm /> 
+      //     </>
+      //   )
+      // }
+
+      function ChatMessages() {
+        const chatMessages = [{
+          id: 'id1',
+          message: 'Hello Chatbot',
+          sender: 'user'
+        },
+        {
+          id: 'id2',
+          message: 'Hello! How can I help you?',
+          sender: 'robot'
+        }];
+
+        function sendMessage() {
+          console.log('Send Message')
+        }
+
         return (
           <>
-            <p>Hello, welcome to my website</p>
-            <div>
-              <input type="text" placeholder="Email" />
-            </div>
-            <div>
-              <input type="password" placeholder="Password" />
-            </div>
-            <button>Login</button>
-            <button>Sign up</button>
+
+            <button onClick={sendMessage}>Send Message</button>
+          
+            {chatMessages.map((chatMessages) => {
+              return (
+                <ChatMessage 
+                  message={chatMessages.message}
+                  sender={chatMessages.sender}
+                  key={chatMessages.id}
+                />
+              );
+            })}
           </>
-        )
+        );
       }
 
       function App() {
         return (
-          <>
-            <LoginForm /> 
-          </>
-        )
-      }
-
-
-      function Apps() {
-        return (
-          <>
-            <ChatInput /> 
-            <ChatMessage 
-              message="Hello Chatbot" 
-              sender="user" 
-            />
-            <ChatMessage 
-              message="Hello! How can I help you?" 
-              sender="robot" 
-            />
-          </>
-        )
+            <>
+              <ChatInput /> 
+              <ChatMessages />
+            </>
+          );
       }
       
       const container = document.querySelector('.js-container');
