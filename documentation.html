@@ -108,6 +108,43 @@
 
     Event Handlers
       - run a function when we interact with the websites
+
+    State 
+      = data that is connected to the HTML
+      = We should use state to save data that changes over time
+        - When we update the data, it will update the HTML
+        - To convert the data into state, we use React.useState()
+        1. The current data
+        2. Function that updates the data
+
+    In React
+      - we should not update the data directly
+      - we should not modify the data directly
+      - We should always create a copy and then modify the copy
+      - This helps React be more efficient
+
+    JS feature
+      - Spread Operator(...)
+        = takes the value in an array, and copies them into a new array
+
+    Array Destructuring
+      - Order Matters
+
+    React Best Practice
+      - Do not use the DOM manually
+        (React is managing the website)
+      - We should use React features to get the text from a textbox
+
+    onClick = run a function when we click
+    onChange = runs a function when we change the text inside an <input>
+    event.target = gives us the element that we're typing in.
+    value = change the text inside this <input>
+
+    Lifting the State Up
+      - share state between multiple components
+    
+    State does not update immediately
+    State is updated after all of the code is finished
   -->
 </body>
 </html>
