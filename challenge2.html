@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chatbot 2.0</title>
+  </head>
+  <body>
+    <div class="js-container"></div>
+
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/chatbot.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <script src="https://unpkg.com/supersimpledev/dayjs.js"></script>
+    <script type="text/babel">
+
+      function ChatInput({ 
+        chatMessages, 
+        setChatMessages,
+        isLoading, 
+        setIsLoading
+      }) {
+        // current data, Updater Function.
+        const [inputText, setInputText] = React.useState('');
+
+        function saveInputText(event) {
+          setInputText(event.target.value)
+        }
+        
+        async function sendMessage() {
+
+          if(isLoading) {
+            return
+          }
+
+          if(!inputText.trim()) {
+            return
+          }
+
+          const newChatMessages = [
+            ...chatMessages,
+            {
+              id: crypto.randomUUID(),
+              message: inputText,
+              sender: 'user'
+            }
+          ];
+
+          setChatMessages(newChatMessages);
+          setInputText('');
+          setIsLoading(true);
+
+          const response = await Chatbot.getResponseAsync(inputText);
+          setChatMessages([
+            ...newChatMessages,
+            {
+              id: crypto.randomUUID(),
+              message: response,
+              sender: 'robot'
+            }
+          ]);
+          setIsLoading(false);
+        }
+
+        function key(event) {
+          if (event.key === 'Enter') {
+            sendMessage()
+          } else if (event.key === 'Escape') {
+            setInputText('')
+          }
+        }
+
+        // return some html
+        return (
+          // div is to group elements to have a multiple elements
+          <>
+            <input 
+              placeholder="Send a message to Chatbot" 
+              size="30"
+              onChange={saveInputText}
+              value={inputText} // Controlled Input
+              onKeyDown={key}
+            />
+            <button
+              onClick={sendMessage}
+              disabled={isLoading || !inputText.trim()}
+            >
+            Send</button>
+          </>
+        );
+      }
+
+      function ChatMessage({ 
+        message, 
+        sender,
+      }) {
+
+        return (
+            <div>
+              {sender === 'robot' && (
+                <img src="robot.png" width="50" />
+              )}
+              {message}
+              {sender === 'user' && (
+                <img src="user.png" width="50" />
+              )}
+            </div>
+        )
+      };
+
+      function ChatMessages({ chatMessages, isLoading }) {
+
+        return (
+          <>
+            {chatMessages.map((chatMessages) => {
+              return (
+                <ChatMessage 
+                  message = {chatMessages.message}
+                  sender = {chatMessages.sender}
+                  key = {chatMessages.id}
+                />
+              );
+            })}
+              {isLoading && (
+                <div>
+                  <img src="robot.png" width="50" />
+                  Loading...
+                </div>
+              )}
+          </>
+        );
+      };
+
+      function App() {
+        // Array Destructuring
+        const [chatMessages, setChatMessages] = React.useState([{
+          id: 'id1',
+          message: 'Hello Chatbot',
+          sender: 'user'
+        },
+        {
+          id: 'id2',
+          message: 'Hello! How can I help you?',
+          sender: 'robot'
+        }]);
+
+        const [isLoading, setIsLoading] = React.useState(false);
+
+        return (
+            <>
+              <ChatInput 
+                chatMessages = {chatMessages}
+                setChatMessages = {setChatMessages}
+                isLoading={isLoading}
+                setIsLoading={setIsLoading}
+              /> 
+              <ChatMessages 
+                chatMessages = {chatMessages}
+                isLoading={isLoading}
+              />
+            </>
+          );
+      }
+      
+      const container = document.querySelector('.js-container');
+      const root = ReactDOM.createRoot(container);
+        root.render(<App />)
+    </script>
+  </body>
+</html>
