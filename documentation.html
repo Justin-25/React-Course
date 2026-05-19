@@ -145,6 +145,47 @@
     
     State does not update immediately
     State is updated after all of the code is finished
+
+    In React, we used className
+      - React is JavaScript code
+      - JavaScript already has a feature called class
+      - class is a reserved word
+
+    Ternary Operator (?:)
+      value1 ? value2 : value3
+      - Works like an if-else statement
+      - if value1 is true -> value2 else value3
+    Ternary operator = insert an if-else statement direclty in the JSX
+
+    {} - save the result of the code into the prop
+    Hooks - insert React features into our component
+      - React.useState() is a hook
+        = const [state, setState] = React.useState('');
+    State - automatically updates the HTML when the data changes
+    
+    React Hooks
+      - useState()
+      - useEffect()
+        - run some code after the components is created or updated
+      - useRef()
+        - automatically save an HTML element from the component
+          ref = container with special React features
+    - Every hook starts with the word "use" 
+    - Put hooks at the top of the components
+    - Hooks should not be inside anything
+        - don't put a hook inside an if-statement or inside function.
+      
+      React.useEffect(() => {
+          
+      }, [Controls when useEffect runs])
+        - React will run this function
+          - after component is created
+          - every time the component is updated
+      [] = only run once, after the component is created
+      [chatMessages] = Dependency Array (control when useEffect runs)
+
+      Best Practice
+        - Give useEffect a dependency array to avoid running too often
   -->
 </body>
 </html>

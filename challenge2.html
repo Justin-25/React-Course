@@ -2,6 +2,81 @@
 <html>
   <head>
     <title>Chatbot 2.0</title>
+    <style>
+      * {
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      .send-button {
+        background-color: rgba(25, 135, 84);
+        color: #fff;
+        padding: 12px 20px;
+        margin-left: 10px;
+        border-radius: 10px;
+        cursor: pointer;
+        border: none;
+        font-size: 15px;
+      }
+
+      .chat-input {
+        padding: 12px 15px;
+        border-width: 1px;
+        border-radius: 10px;
+        font-size: 15px;
+        flex-grow: 1;
+      }
+
+      .chat-input-container {
+        display: flex;
+        margin-bottom: 60px;
+      }
+
+      .app-container {
+        max-width: 700px;
+        margin: 0 auto;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .chat-message-user {
+        display: flex;
+        justify-content: flex-end;
+        align-items: start;
+      }
+
+      .chat-message-robot {
+        display: flex;
+        justify-content: flex-start;
+        align-items: start;
+      }
+
+      .chat-message-text {
+        max-width: 300px;
+        background-color: rgb(238, 238, 238);
+        display: flex;
+        align-items: center;
+        padding: 15px 20px;
+        margin: 0 10px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+      }
+
+      .chat-message-profile {
+        width: 45px;
+      }
+
+      .chat-messages-container {
+        flex-grow: 1;
+        margin-top: 30px;
+        overflow: scroll;
+        /* To hide scroll bar */
+        scrollbar-width: none;
+        
+      }
+    </style>
   </head>
   <body>
     <div class="js-container"></div>
@@ -74,20 +149,22 @@
         // return some html
         return (
           // div is to group elements to have a multiple elements
-          <>
+          <div className="chat-input-container">
             <input 
               placeholder="Send a message to Chatbot" 
               size="30"
               onChange={saveInputText}
               value={inputText} // Controlled Input
               onKeyDown={key}
+              className="chat-input"
             />
             <button
               onClick={sendMessage}
               disabled={isLoading || !inputText.trim()}
+              className="send-button"
             >
             Send</button>
-          </>
+          </div>
         );
       }
 
@@ -97,22 +174,50 @@
       }) {
 
         return (
-            <div>
+            <div className={
+              sender === 'user' 
+              ? "chat-message-user" 
+              : "chat-message-robot"
+            }>   
               {sender === 'robot' && (
-                <img src="robot.png" width="50" />
+                <img src="robot.png" 
+                  className="chat-message-profile" 
+                />
               )}
-              {message}
+              <div className="chat-message-text">
+                {message}
+              </div>
               {sender === 'user' && (
-                <img src="user.png" width="50" />
+                <img src="user.png" 
+                  className="chat-message-profile" 
+                />
               )}
             </div>
         )
       };
 
-      function ChatMessages({ chatMessages, isLoading }) {
+      function ChatMessages({ 
+        chatMessages, 
+        isLoading 
+      }) {
+        const chatMessagesRef = React.useRef(null)
+
+        React.useEffect(() => {
+          const containerHtmlElem = chatMessagesRef.current;
+
+          if (containerHtmlElem) {
+            // scrollTop means how far from the top should we scroll
+            // scrollHeight gives us the total height of the element
+            // So if we set the scrollTop to the total height, it's going to scroll all the way down to the bottom
+            containerHtmlElem.scrollTop = containerHtmlElem.scrollHeight
+          }
+        }, [chatMessages])
 
         return (
-          <>
+          <div 
+            className="chat-messages-container"
+            ref={chatMessagesRef}
+          >
             {chatMessages.map((chatMessages) => {
               return (
                 <ChatMessage 
@@ -128,7 +233,7 @@
                   Loading...
                 </div>
               )}
-          </>
+          </div>
         );
       };
 
@@ -148,18 +253,19 @@
         const [isLoading, setIsLoading] = React.useState(false);
 
         return (
-            <>
+            <div className="app-container">
+              <ChatMessages 
+                chatMessages = {chatMessages}
+                isLoading={isLoading}
+              />
+
               <ChatInput 
                 chatMessages = {chatMessages}
                 setChatMessages = {setChatMessages}
                 isLoading={isLoading}
                 setIsLoading={setIsLoading}
               /> 
-              <ChatMessages 
-                chatMessages = {chatMessages}
-                isLoading={isLoading}
-              />
-            </>
+            </div>
           );
       }
       
