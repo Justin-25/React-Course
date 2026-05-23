@@ -1,0 +1,29 @@
+.input-container {
+margin-bottom: 10px;
+}
+
+.input-password {
+margin-right: 10px;
+}
+
+.input-container input {
+padding: 5px 10px;
+border-radius: 5px;
+border-width: 1px;
+}
+
+.btn {
+margin-right: 10px;
+padding: 10px;
+border-radius: 5px;
+border: none;
+background-color: rgb(0, 123, 255);
+color: #fff;
+cursor: pointer;
+}
+
+.btn-password {
+padding: 4px 10px;
+border-radius: 5px;
+border-width: 1px;
+}
