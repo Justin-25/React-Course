@@ -1,0 +1,27 @@
+.chat-messages-container {
+  flex-grow: 1;
+  margin-top: 30px;
+  overflow: scroll;
+  /* To hide scroll bar */
+  scrollbar-width: none;
+  
+}
+
+.welcome-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  flex-grow: 1;
+  font-family: Arial;
+  font-size: 21px;
+  color: grey;
+}
+
+.loading {
+  background-color: rgb(238, 238, 238);
+  height: 40px;
+  margin-left: 10px;
+  border-radius: 10px;
+  margin-bottom: 5px;
+}
