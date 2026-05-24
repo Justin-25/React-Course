@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Chatbot } from "supersimpledev";
+import dayjs from 'dayjs';
 import './ChatInput.css'
 
 export function ChatInput({ 
@@ -16,7 +17,6 @@ setIsLoading
   }
 
   async function sendMessage() {
-
     if(isLoading) {
       return
     }
@@ -30,24 +30,33 @@ setIsLoading
       {
         id: crypto.randomUUID(),
         message: inputText,
-        sender: 'user'
+        sender: 'user',
+        time: dayjs().valueOf()
       }
     ];
 
     setChatMessages(newChatMessages);
     setInputText('');
     setIsLoading(true);
-
-    const response = await Chatbot.getResponseAsync(inputText);
-    setChatMessages([
-      ...newChatMessages,
-      {
-        id: crypto.randomUUID(),
-        message: response,
-        sender: 'robot'
-      }
-    ]);
-    setIsLoading(false);
+    
+    try {
+      
+      const response = await Chatbot.getResponseAsync(inputText);
+      setChatMessages([
+        ...newChatMessages,
+        {
+          id: crypto.randomUUID(),
+          message: response,
+          sender: 'robot',
+          time: dayjs().valueOf()
+        }
+      ]);
+      
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   function key(event) {
@@ -56,6 +65,16 @@ setIsLoading
     } else if (event.key === 'Escape') {
       setInputText('')
     }
+  }
+
+
+  // Clears chat messages from state: setChatMessages([])
+  // Clears localStorage: localStorage.setItem('messages', JSON.stringify([]))
+  function removeAll() {
+    setChatMessages([]);
+    localStorage.setItem('messages', JSON.stringify([]));
+    // The reload() method of the Location interface reloads the current URL, like the Refresh button.
+    window.location.reload()
   }
 
   // return some html
@@ -76,6 +95,12 @@ setIsLoading
         className="send-button"
       >
       Send</button>
+      <button
+        className="clear-button"
+        onClick={removeAll}
+      >
+        Clear
+      </button>
     </div>
   );
 }

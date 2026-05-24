@@ -44,6 +44,7 @@ function ChatMessages({
             <ChatMessage 
               message = {chatMessages.message}
               sender = {chatMessages.sender}
+              time = {chatMessages.time}
               key = {chatMessages.id}
             />
           );

@@ -4,6 +4,12 @@
   align-items: start;
 }
 
+.chat-user {
+  height: 45px;
+  border-radius: 45px;
+  object-fit: cover;
+}
+
 .chat-message-robot {
   display: flex;
   justify-content: flex-start;
@@ -14,11 +20,18 @@
   max-width: 300px;
   background-color: rgb(238, 238, 238);
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
   padding: 15px 20px;
   margin: 0 10px;
   margin-bottom: 20px;
   border-radius: 10px;
+}
+
+.chat-message-time {
+  margin-top: 5px;
+  color: grey;
+  font-size: 14px;
 }
 
 .chat-message-profile {
