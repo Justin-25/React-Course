@@ -1,17 +1,20 @@
-import './Orders.css'
-import './header.css'
+import { Link } from "react-router";
+import { HeaderPage } from "../components/HeaderPage";
+import "./Orders.css";
 
 export function Orders() {
   return (
     <>
+      <title>Orders</title>
+
+      <HeaderPage />
+
       <div className="header">
         <div className="left-section">
-          <a href="/" className="header-link">
-            <img className="logo"
-              src="images/logo-white.png" />
-            <img className="mobile-logo"
-              src="images/mobile-logo-white.png" />
-          </a>
+          <Link to="/" className="header-link">
+            <img className="logo" src="images/logo-white.png" />
+            <img className="mobile-logo" src="images/mobile-logo-white.png" />
+          </Link>
         </div>
 
         <div className="middle-section">
@@ -23,16 +26,15 @@ export function Orders() {
         </div>
 
         <div className="right-section">
-          <a className="orders-link header-link" href="orders">
-
+          <Link className="orders-link header-link" to="/orders">
             <span className="orders-text">Orders</span>
-          </a>
+          </Link>
 
-          <a className="cart-link header-link" href="checkout">
+          <Link className="cart-link header-link" to="/checkout">
             <img className="cart-icon" src="images/icons/cart-icon.png" />
             <div className="cart-quantity">3</div>
             <div className="cart-text">Cart</div>
-          </a>
+          </Link>
         </div>
       </div>
 
@@ -41,7 +43,6 @@ export function Orders() {
 
         <div className="orders-grid">
           <div className="order-container">
-
             <div className="order-header">
               <div className="order-header-left-section">
                 <div className="order-date">
@@ -72,21 +73,22 @@ export function Orders() {
                 <div className="product-delivery-date">
                   Arriving on: August 15
                 </div>
-                <div className="product-quantity">
-                  Quantity: 1
-                </div>
+                <div className="product-quantity">Quantity: 1</div>
                 <button className="buy-again-button button-primary">
-                  <img className="buy-again-icon" src="images/icons/buy-again.png" />
+                  <img
+                    className="buy-again-icon"
+                    src="images/icons/buy-again.png"
+                  />
                   <span className="buy-again-message">Add to Cart</span>
                 </button>
               </div>
 
               <div className="product-actions">
-                <a href="tracking">
+                <Link to="/tracking">
                   <button className="track-package-button button-secondary">
                     Track package
                   </button>
-                </a>
+                </Link>
               </div>
 
               <div className="product-image-container">
@@ -100,27 +102,27 @@ export function Orders() {
                 <div className="product-delivery-date">
                   Arriving on: August 19
                 </div>
-                <div className="product-quantity">
-                  Quantity: 2
-                </div>
+                <div className="product-quantity">Quantity: 2</div>
                 <button className="buy-again-button button-primary">
-                  <img className="buy-again-icon" src="images/icons/buy-again.png" />
+                  <img
+                    className="buy-again-icon"
+                    src="images/icons/buy-again.png"
+                  />
                   <span className="buy-again-message">Add to Cart</span>
                 </button>
               </div>
 
               <div className="product-actions">
-                <a href="tracking.html">
+                <Link to="/tracking">
                   <button className="track-package-button button-secondary">
                     Track package
                   </button>
-                </a>
+                </Link>
               </div>
             </div>
           </div>
 
           <div className="order-container">
-
             <div className="order-header">
               <div className="order-header-left-section">
                 <div className="order-date">
@@ -145,32 +147,31 @@ export function Orders() {
               </div>
 
               <div className="product-details">
-                <div className="product-name">
-                  Intermediate Size Basketball
-                </div>
+                <div className="product-name">Intermediate Size Basketball</div>
                 <div className="product-delivery-date">
                   Arriving on: June 17
                 </div>
-                <div className="product-quantity">
-                  Quantity: 2
-                </div>
+                <div className="product-quantity">Quantity: 2</div>
                 <button className="buy-again-button button-primary">
-                  <img className="buy-again-icon" src="images/icons/buy-again.png" />
+                  <img
+                    className="buy-again-icon"
+                    src="images/icons/buy-again.png"
+                  />
                   <span className="buy-again-message">Add to Cart</span>
                 </button>
               </div>
 
               <div className="product-actions">
-                <a href="tracking.html">
+                <Link to="/tracking">
                   <button className="track-package-button button-secondary">
                     Track package
                   </button>
-                </a>
+                </Link>
               </div>
             </div>
           </div>
         </div>
       </div>
     </>
-  )
+  );
 }
