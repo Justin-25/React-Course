@@ -1,13 +1,14 @@
 import { Link } from "react-router";
-import { HeaderPage } from "../components/HeaderPage";
-import "./Orders.css";
+import { Header } from "../../components/Header";
+import "./OrdersPage.css";
 
-export function Orders() {
+export function OrdersPage() {
   return (
     <>
+      <link rel="icon" type="image/png" href="/orders-favicon.png" />
       <title>Orders</title>
 
-      <HeaderPage />
+      <Header />
 
       <div className="header">
         <div className="left-section">
@@ -26,7 +27,7 @@ export function Orders() {
         </div>
 
         <div className="right-section">
-          <Link className="orders-link header-link" to="/orders">
+          <Link className="orders-link header-link active" to="/orders">
             <span className="orders-text">Orders</span>
           </Link>
 

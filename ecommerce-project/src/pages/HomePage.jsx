@@ -1,13 +1,14 @@
 import { Link } from "react-router";
-import { HeaderPage } from "../components/HeaderPage";
+import { Header } from "../components/Header";
 import "./HomePage.css";
 
 export function HomePage() {
   return (
     <>
+      <link rel="icon" type="image/png" href="/home-favicon.png" />
       <title>HomePage</title>
 
-      <HeaderPage />
+      <Header />
 
       <div className="header">
         <div className="left-section">

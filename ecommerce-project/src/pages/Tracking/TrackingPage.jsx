@@ -1,14 +1,14 @@
 import { Link } from "react-router";
-import "../components/header.css";
-import { HeaderPage } from "../components/HeaderPage";
-import "./Tracking.css";
+import "../../components/header.css";
+import { Header } from "../../components/Header";
+import "./TrackingPage.css";
 
-export function Tracking() {
+export function TrackingPage() {
   return (
     <>
       <title>Tracking</title>
 
-      <HeaderPage />
+      <Header />
 
       <div className="header">
         <div className="left-section">
