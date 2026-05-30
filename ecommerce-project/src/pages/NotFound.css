@@ -1,0 +1,15 @@
+.container {
+  min-height: 800px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+} 
+
+.notfound-container {
+  margin: 0 auto;
+}
+
+.not-found {
+  width: 100%;
+  max-width: 1200px;
+}
