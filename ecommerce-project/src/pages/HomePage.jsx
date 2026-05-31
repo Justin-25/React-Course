@@ -15,7 +15,7 @@ export function HomePage() {
         <div className="products-grid">
           {products.map((product) => {
             return (
-              <div className="product-container">
+              <div key={product.id} className="product-container">
                 <div className="product-image-container">
                   <img
                     className="product-image"
@@ -30,7 +30,7 @@ export function HomePage() {
                 <div className="product-rating-container">
                   <img
                     className="product-rating-stars"
-                    src={`images/ratings/rating-{product.rating.stars}.png`}
+                    src={`images/ratings/rating-${product.rating.stars * 10}.png`}
                   />
                   <div className="product-rating-count link-primary">{product.rating.count}</div>
                 </div>
