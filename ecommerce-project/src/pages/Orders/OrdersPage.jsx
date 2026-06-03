@@ -8,9 +8,12 @@ export function OrdersPage({ cart }) {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    axios.get("/api/orders?expand=products").then((response) => {
+    async function fetchOrdersData() {
+      const response = await axios.get("/api/orders?expand=products");
       setOrders(response.data);
-    });
+    }
+
+    fetchOrdersData()
   }, []);
 
   return (
@@ -23,9 +26,7 @@ export function OrdersPage({ cart }) {
       <div className="orders-page">
         <div className="page-title">Your Orders</div>
 
-        <OrdersGrid 
-          orders={orders}
-        />
+        <OrdersGrid orders={orders} />
       </div>
     </>
   );

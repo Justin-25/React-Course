@@ -2,19 +2,19 @@ import axios from "axios";
 import { Link } from "react-router";
 import { Header } from "../../components/Header";
 import { useEffect, useState } from "react";
-import { ProductsGrid } from "./ProductsGrid"; 
+import { ProductsGrid } from "./ProductsGrid";
 import "./HomePage.css";
 
-export function HomePage({
-  cart
-}) {
+export function HomePage({ cart }) {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    axios.get('/api/products')
-      .then((response) => {
-        setProducts(response.data);
-      });
+    async function fetchHomeData() {
+      const response = await axios.get("/api/products");
+      setProducts(response.data);
+    }
+
+    fetchHomeData()
   }, []);
 
   return (
@@ -22,14 +22,10 @@ export function HomePage({
       <link rel="icon" type="image/png" href="/home-favicon.png" />
       <title>HomePage</title>
 
-      <Header 
-        cart={cart}
-      />
+      <Header cart={cart} />
 
       <div className="home-page">
-        <ProductsGrid 
-          products={products}
-        />
+        <ProductsGrid products={products} />
       </div>
     </>
   );
