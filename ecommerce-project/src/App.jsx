@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router";
-import { HomePage } from "./pages/HomePage";
+import { HomePage } from "./pages/HomePage/HomePage";
 import { CheckoutPage } from "./pages/Checkout/CheckoutPage";
 import { OrdersPage } from "./pages/Orders/OrdersPage";
 import { TrackingPage } from "./pages/Tracking/TrackingPage";
@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 
 import axios from "axios";
 import "./App.css";
+
 
 function App() {
   const [cart, setCart] = useState([]);
