@@ -3,7 +3,8 @@ import { CartItemDetailsGrid } from "./CartItemDetailsGrid";
 
 export function OrderSummary({
   cart,
-  deliveryOptions
+  deliveryOptions,
+  loadCartData
 }) {
   return (
     <div className="order-summary">
@@ -23,6 +24,7 @@ export function OrderSummary({
               <CartItemDetailsGrid 
                 cartItem={cartItem}
                 deliveryOptions={deliveryOptions}
+                loadCartData={loadCartData}
               />
             </div>
           );

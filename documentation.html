@@ -268,6 +268,32 @@
       In the real world, we use the backend to update the data
       get = get data from the backend
       post = create data in the backend
+      Based on the URL Path, the backend can do different things
+      /api/products = gives us the products
+      /api/cart-items = gives us the cart
+      Every request also has a Type
+      axios.get("/api/cart-items"); = sends GET and /api/cart-items
+      It sends 2 pieces of information
+      1. Type
+      2. URL Path
+      Every request also has a Type
+      axios.post("/api/cart-items',
+      This sends
+      1. Type: POST
+      2. URL Path: /api/cart-items
+      It looks at both the TYPE and the URL Path, to decide what to do
+      GET /api/cart-items = GET the cart items
+      POST /api/cart-items = Create a new cart item
+      4 common types of requests:
+      GET = get some data
+      POST = create some data
+      PUT = update some data
+      DELETE = delete some data
+      Each request has a Type and a URL Path
+      Both of these determine what the backend will do
+      Dependency Array = determines when useEffect runs
+      [] = only run once
+      [value] = whenever value changes, it will re-run useEffect
   -->
 </body>
 </html>

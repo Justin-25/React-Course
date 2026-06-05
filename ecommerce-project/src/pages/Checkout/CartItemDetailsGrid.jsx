@@ -3,7 +3,8 @@ import { DeliveryOptions } from "./DeliveryOptions";
 
 export function CartItemDetailsGrid({
   cartItem,
-  deliveryOptions
+  deliveryOptions,
+  loadCartData
 }) {
   return (
     <div className="cart-item-details-grid">
@@ -27,6 +28,7 @@ export function CartItemDetailsGrid({
       <DeliveryOptions 
         cartItem={cartItem} 
         deliveryOptions={deliveryOptions} 
+        loadCartData={loadCartData}
         />
     </div>
   );
