@@ -1,3 +1,4 @@
+import axios from "axios";
 import { formatMoney } from "../../utils/money";
 import { DeliveryOptions } from "./DeliveryOptions";
 
@@ -6,6 +7,21 @@ export function CartItemDetailsGrid({
   deliveryOptions,
   loadCartData
 }) {
+
+  async function deleteCartItem() {
+    await axios.delete(`/api/cart-items/${cartItem.productId}`)
+
+    await loadCartData();
+  }
+
+  async function updateCartQuantity() {
+    await axios.put(`/api/cart-items/${cartItem.productId}`, {
+      quantity: cartItem.quantity
+    })
+
+    await loadCartData();
+  }
+
   return (
     <div className="cart-item-details-grid">
       <img className="product-image" src={cartItem.product.image} />
@@ -20,8 +36,16 @@ export function CartItemDetailsGrid({
             Quantity:{" "}
             <span className="quantity-label">{cartItem.quantity}</span>
           </span>
-          <span className="update-quantity-link link-primary">Update</span>
-          <span className="delete-quantity-link link-primary">Delete</span>
+          <span className="update-quantity-link link-primary"
+            onChange={updateCartQuantity}
+          >
+            Update
+          </span>
+          <span className="delete-quantity-link link-primary"
+            onClick={deleteCartItem}
+          >
+            Delete
+          </span>
         </div>
       </div>
 

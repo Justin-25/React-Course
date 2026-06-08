@@ -23,7 +23,7 @@ export function CheckoutPage({ cart, loadCartData }) {
 
     fetchCheckoutData()
   }, [cart]);
-
+  
   return (
     <>
       <link rel="icon" type="image/png" href="/cart-favicon.png" />

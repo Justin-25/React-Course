@@ -7,6 +7,7 @@ export function OrderSummary({
   loadCartData
 }) {
   return (
+
     <div className="order-summary">
       {deliveryOptions.length > 0 &&
         cart.map((cartItem) => {
