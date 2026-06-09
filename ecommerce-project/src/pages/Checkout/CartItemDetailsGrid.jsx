@@ -1,25 +1,55 @@
 import axios from "axios";
 import { formatMoney } from "../../utils/money";
 import { DeliveryOptions } from "./DeliveryOptions";
+import { useState } from "react";
 
 export function CartItemDetailsGrid({
   cartItem,
   deliveryOptions,
-  loadCartData
+  loadCartData,
 }) {
+  const [quantity, setQuantity] = useState(cartItem.quantity);
+  const [isUpdating, setIsUpdating] = useState(false);
 
   async function deleteCartItem() {
-    await axios.delete(`/api/cart-items/${cartItem.productId}`)
+    await axios.delete(`/api/cart-items/${cartItem.productId}`);
 
     await loadCartData();
   }
 
-  async function updateCartQuantity() {
-    await axios.put(`/api/cart-items/${cartItem.productId}`, {
-      quantity: cartItem.quantity
-    })
+  function inputUpdateQuantity(event) {
+    setQuantity(Number(event.target.value));
+  }
+  
+  async function keyFormat(event) {
+    if (event.key === "Enter") {
+      await axios.put(`/api/cart-items/${cartItem.productId}`, {
+        quantity
+      });
 
-    await loadCartData();
+      setIsUpdating(false);
+      await loadCartData();
+    } else if (event.key === "Escape") {
+      await axios.put(`/api/cart-items/${cartItem.productId}`, {
+        quantity: cartItem.quantity
+      });
+      
+      setIsUpdating(false);
+      await loadCartData();
+    }
+  }
+
+  async function updateCartQuantity() {
+    if (isUpdating === false) {
+      setIsUpdating(true);
+    } else if (isUpdating === true) {
+      await axios.put(`/api/cart-items/${cartItem.productId}`, {
+        quantity
+      });
+
+      setIsUpdating(false);
+      await loadCartData();
+    }
   }
 
   return (
@@ -34,14 +64,26 @@ export function CartItemDetailsGrid({
         <div className="product-quantity">
           <span>
             Quantity:{" "}
-            <span className="quantity-label">{cartItem.quantity}</span>
+            {isUpdating === true ? (
+              <input
+                type="text"
+                value={quantity}
+                onChange={inputUpdateQuantity}
+                onKeyDown={keyFormat}
+                style={{ width: "50px" }}
+              />
+            ) : (
+              <span className="quantity-label">{cartItem.quantity}</span>
+            )}
           </span>
-          <span className="update-quantity-link link-primary"
-            onChange={updateCartQuantity}
+          <span
+            className="update-quantity-link link-primary"
+            onClick={updateCartQuantity}
           >
             Update
           </span>
-          <span className="delete-quantity-link link-primary"
+          <span
+            className="delete-quantity-link link-primary"
             onClick={deleteCartItem}
           >
             Delete
@@ -49,11 +91,11 @@ export function CartItemDetailsGrid({
         </div>
       </div>
 
-      <DeliveryOptions 
-        cartItem={cartItem} 
-        deliveryOptions={deliveryOptions} 
+      <DeliveryOptions
+        cartItem={cartItem}
+        deliveryOptions={deliveryOptions}
         loadCartData={loadCartData}
-        />
+      />
     </div>
   );
 }

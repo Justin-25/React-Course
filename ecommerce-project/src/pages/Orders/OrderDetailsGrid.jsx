@@ -11,7 +11,7 @@ export function OrderDetailsGrid({ order, loadCartData }) {
         async function addtoCart() {
           await axios.post("/api/cart-items", {
             productId: orderProduct.product.id,
-            quantity: 1
+            quantity: Number(1)
           });
 
           await loadCartData();
