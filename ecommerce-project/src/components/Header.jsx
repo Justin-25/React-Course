@@ -1,16 +1,25 @@
-import { Link, NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 
 import "./header.css";
+import { useState } from "react";
 
-export function Header({
-  cart
-}) {
-
+export function Header({ cart, search }) {
   let totalQuantity = 0;
 
   cart.forEach((cartItem) => {
-    totalQuantity += cartItem.quantity
-  })
+    totalQuantity += cartItem.quantity;
+  });
+
+  const navigate = useNavigate();
+  const [searchProducts, setSearchProducts] = useState(search || "");
+
+  function searchButton() {
+    navigate(`/?search=${searchProducts}`);
+  }
+
+  function inputSearch(event) {
+    setSearchProducts(event.target.value)
+  }
 
   return (
     <>
@@ -18,15 +27,27 @@ export function Header({
         <div className="left-section">
           <NavLink to="/" className="header-link">
             <img className="logo" src={"src/assets/images/logo-white.png"} />
-            <img className="mobile-logo" src={"src/assets/images/mobile-logo-white.png"} />
+            <img
+              className="mobile-logo"
+              src={"src/assets/images/mobile-logo-white.png"}
+            />
           </NavLink>
         </div>
 
         <div className="middle-section">
-          <input className="search-bar" type="text" placeholder="Search" />
+          <input
+            className="search-bar"
+            type="text"
+            value={searchProducts}
+            onChange={inputSearch}
+            placeholder="Search"
+          />
 
-          <button className="search-button">
-            <img className="search-icon" src={"src/assets/images/icons/search-icon.png"} />
+          <button className="search-button" onClick={searchButton}>
+            <img
+              className="search-icon"
+              src={"src/assets/images/icons/search-icon.png"}
+            />
           </button>
         </div>
 
@@ -36,10 +57,11 @@ export function Header({
           </NavLink>
 
           <NavLink className="cart-link header-link" to="/checkout">
-            <img className="cart-icon" src={"src/assets/images/icons/cart-icon.png"} />
-            <div className="cart-quantity">
-              {totalQuantity}
-            </div>
+            <img
+              className="cart-icon"
+              src={"src/assets/images/icons/cart-icon.png"}
+            />
+            <div className="cart-quantity">{totalQuantity}</div>
             <div className="cart-text">Cart</div>
           </NavLink>
         </div>
