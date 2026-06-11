@@ -1,14 +1,18 @@
-import { describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { Product } from "./Product";
-import { userEvent } from '@testing-library/user-event'
+import { userEvent } from "@testing-library/user-event";
 import axios from "axios";
 
-vi.mock('axios')
+vi.mock("axios");
 
 describe("Product component", () => {
-  it("display the products details correctly", () => {
-    const product = {
+  let product;
+
+  let loadCartData;
+
+  beforeEach(() => {
+    product = {
       id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
       image: "images/products/athletic-cotton-socks-6-pairs.jpg",
       name: "Black and Gray Athletic Cotton Socks - 6 Pairs",
@@ -20,8 +24,10 @@ describe("Product component", () => {
       keywords: ["socks", "sports", "apparel"],
     };
 
-    const loadCartData = vi.fn();
+    loadCartData = vi.fn();
+  });
 
+  it("display the products details correctly", () => {
     render(<Product product={product} loadCartData={loadCartData} />);
 
     expect(
@@ -44,31 +50,17 @@ describe("Product component", () => {
   });
 
   it("adds a product to the cart", async () => {
-    const product = {
-      id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
-      image: "images/products/athletic-cotton-socks-6-pairs.jpg",
-      name: "Black and Gray Athletic Cotton Socks - 6 Pairs",
-      rating: {
-        stars: 4.5,
-        count: 87,
-      },
-      priceCents: 1090,
-      keywords: ["socks", "sports", "apparel"],
-    };
-
-    const loadCartData = vi.fn();
-
     render(<Product product={product} loadCartData={loadCartData} />);
 
     const user = userEvent.setup();
-    const addToCartButton = screen.getByTestId('add-to-cart-button')
-    await user.click(addToCartButton)
+    const addToCartButton = screen.getByTestId("add-to-cart-button");
+    await user.click(addToCartButton);
 
-    expect(axios.post).toHaveBeenCalledWith('/api/cart-items', {
-      productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
-      quantity: 1
+    expect(axios.post).toHaveBeenCalledWith("/api/cart-items", {
+      productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
+      quantity: 1,
     });
-    
+
     expect(loadCartData).toHaveBeenCalled();
   });
 });
