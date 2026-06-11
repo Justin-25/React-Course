@@ -16,7 +16,7 @@ export function HomePage({ cart, loadCartData }) {
         const response = await axios.get(`/api/products?search=${search}`);
           setProducts(response.data);
       } else {
-        const response = await axios.get(`/api/products`);
+        const response = await axios.get('/api/products');
           setProducts(response.data);
       }
     }
