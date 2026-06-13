@@ -11,7 +11,11 @@ describe("Product component", () => {
 
   let loadCartData;
 
+  let user;
+
   beforeEach(() => {
+    user = userEvent.setup();
+
     product = {
       id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
       image: "images/products/athletic-cotton-socks-6-pairs.jpg",
@@ -52,7 +56,6 @@ describe("Product component", () => {
   it("adds a product to the cart", async () => {
     render(<Product product={product} loadCartData={loadCartData} />);
 
-    const user = userEvent.setup();
     const addToCartButton = screen.getByTestId("add-to-cart-button");
     await user.click(addToCartButton);
 
@@ -63,4 +66,23 @@ describe("Product component", () => {
 
     expect(loadCartData).toHaveBeenCalled();
   });
+
+  it('select a quantity for the product', async () => {
+    render(<Product product={product} loadCartData={loadCartData} />);
+
+    const quantitySelector = screen.getByTestId("select-quantity");
+    const addToCartButton = screen.getByTestId("add-to-cart-button");
+    await user.click(quantitySelector);
+    await user.selectOptions(quantitySelector, '3')
+    await user.click(addToCartButton);
+
+    expect(quantitySelector).toHaveValue('3')
+
+    expect(axios.post).toHaveBeenCalledWith('/api/cart-items', {
+      productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
+      quantity: 3
+    });
+
+    expect(loadCartData).toHaveBeenCalled();
+  })
 });
