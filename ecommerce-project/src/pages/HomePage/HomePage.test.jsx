@@ -3,13 +3,17 @@ import { render, screen, within } from "@testing-library/react";
 import axios from "axios";
 import { HomePage } from "./HomePage";
 import { MemoryRouter } from "react-router";
+import userEvent from "@testing-library/user-event";
 
 vi.mock("axios");
 
 describe("HomePage component", () => {
   let loadCartData;
+  let user;
 
   beforeEach(() => {
+    user = userEvent.setup();
+
     loadCartData = vi.fn();
 
     axios.get.mockImplementation(async (urlPath) => {
@@ -63,4 +67,20 @@ describe("HomePage component", () => {
       within(productContainers[1]).getByText('Intermediate Size Basketball')
     ).toBeInTheDocument()
   });
+
+  it('Check if the Add to Cart Button works', async () => {
+    render(
+      <MemoryRouter>
+        <HomePage cart={[]} loadCartData={loadCartData} />
+      </MemoryRouter>,
+    );
+
+    const productContainers = await screen.findAllByTestId('product-container');
+    expect(productContainers.length).toBe(2);
+
+    let addToCartButton = within(productContainers[0]).getByTestId('add-to-cart-button')
+    await user.click(addToCartButton)
+    addToCartButton = within(productContainers[1]).getByTestId('add-to-cart-button')
+    await user.click(addToCartButton)
+  })
 });
