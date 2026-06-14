@@ -15,7 +15,7 @@ export function PaymentSummary({ paymentSummary, loadCartData }) {
 
   return (
     <div className="payment-summary">
-      <div className="payment-summary-title">Payment Summary</div>
+      <div className="payment-summary-title" data-testid='payment-summary'>Payment Summary</div>
       {paymentSummary && (
         <>
           <div className="payment-summary-row">
@@ -56,6 +56,7 @@ export function PaymentSummary({ paymentSummary, loadCartData }) {
           <button
             className="place-order-button button-primary"
             onClick={createOrder}
+            data-testid='place-order-button'
           >
             Place your order
           </button>
