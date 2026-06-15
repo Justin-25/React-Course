@@ -80,7 +80,7 @@ export function Product({ product, loadCartData }) {
         className="added-to-cart"
         style={{ opacity: addedToCart ? 1 : 0}}  
       >
-        <img src={"src/assets/images/icons/checkmark.png"} />
+        <img src={"images/icons/checkmark.png"} />
         Added
       </div>
 

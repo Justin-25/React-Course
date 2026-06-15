@@ -10,7 +10,7 @@ export function NotFound({
 
       <div className="container">
         <div className="notfound-container">
-          <img className="not-found" src={"src/assets/images/not-found.jpg"} />
+          <img className="not-found" src={"images/not-found.jpg"} />
         </div>
       </div>
     </>
